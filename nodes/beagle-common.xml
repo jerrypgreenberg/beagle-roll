@@ -16,6 +16,7 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 </changelog>
 
 <package>beagle</package>
+<package>beagle-2.1</package>
 <package>beagle-modules</package>
 
 </kickstart>

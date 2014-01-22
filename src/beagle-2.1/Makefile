@@ -74,7 +74,7 @@ COMPILE_FLAGS = -xhost -lstdc++
 CCOMP = icc
 CXXCOMP = icpc
 
-build: $(SRC_DIRS)
+build: $(SOURCE_DIR)
 	( \
           $(COMPILERSETUP); \
           export CPPFLAGS="-I/opt/gnu/include"; \
@@ -83,6 +83,7 @@ build: $(SRC_DIRS)
 	  export CXX=$(CXXCOMP); \
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
 	  cd $(SOURCE_DIR); \
+          ./autogen.sh; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib $(CONFIG_OPTIONS);  \
 	  make \
 	)
@@ -98,5 +99,12 @@ install::
 	)
 	umount $(PKGROOT)
 
+$(SOURCE_DIR):
+	( \
+            mkdir $(SOURCE_DIR); \
+            svn checkout http://beagle-lib.googlecode.com/svn/tags/beagle_release_2_1/ $(SOURCE_DIR) \
+        )
+	
+
 clean::
-	rm -rf $(SOURCE_DIR) intel
+	rm -rf $(SOURCE_DIR) intel .subversion .svn

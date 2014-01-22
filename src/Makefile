@@ -2,11 +2,12 @@
 #
 # @Copyright@
 # 
-# 				Rocks(tm)
+# 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		        version 4.3 (Mars Hill)
+# 		         version 5.6 (Emerald Boa)
+# 		         version 6.1 (Emerald Boa)
 # 
-# Copyright (c) 2000 - 2011 The Regents of the University of California.
+# Copyright (c) 2000 - 2013 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -24,7 +25,7 @@
 # 3. All advertising and press materials, printed or electronic, mentioning
 # features or use of this software must display the following acknowledgement: 
 # 
-# 	"This product includes software developed by the Rocks(tm)
+# 	"This product includes software developed by the Rocks(r)
 # 	Cluster Group at the San Diego Supercomputer Center at the
 # 	University of California, San Diego and its contributors."
 # 
@@ -53,34 +54,16 @@
 # 
 # @Copyright@
 #
-#
-#
+# $Log$
 
--include $(shell ${ROCKSROOT}/bin/arch).mk
--include $(shell ${ROCKSROOT}/bin/os).mk
+-include $(shell $(ROCKSROOT)/bin/arch).mk
+-include $(shell $(ROCKSROOT)/bin/os).mk
 
-default:
-	@echo "copyright|rpm|pkg|clean"
+default:	pkg
 
-copyright rpm pkg clean::
+copyright pkg rpm clean::
 	for i in $(SRCDIRS) ; do \
-	  grep -q ROLLCOMPILER $$i/version.mk; \
-	  if test $$? -eq 0; then \
-	    for c in $(ROLLCOMPILER); do \
-	      grep -q ROLLMPI $$i/version.mk; \
-	      if test $$? -eq 0; then \
-	        for m in $(ROLLMPI); do \
-	          for n in $(ROLLNETWORK); do \
-	            echo make $@ in $$i with ROLLCOMPILER=$$c ROLLMPI=$$m ROLLNETWORK=$$n; \
-	            (cd $$i; $(MAKE) ROLLCOMPILER=$$c ROLLMPI=$$m ROLLNETWORK=$$n $@); \
-	          done; \
-	        done; \
-	      else \
-	        echo make $@ in $$i with ROLLCOMPILER=$$c; \
-	        (cd $$i; $(MAKE) ROLLCOMPILER=$$c $@); \
-	      fi; \
-	    done; \
-	  else \
-	    (cd $$i; $(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLMPI="$(ROLLMPI)" ROLLNETWORK="$(ROLLNETWORK)" $@) ; \
-	  fi; \
+		cd $$i; \
+		$(MAKE) $@ || exit 2 ; \
+		cd ..; \
 	done
