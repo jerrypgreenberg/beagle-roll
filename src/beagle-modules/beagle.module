@@ -1,5 +1,7 @@
 #%Module1.0
 set compiler "nocompiler"
+set mpi "nompi"
+set network "nonetwork"
 if {[module-info mode switch1] || [module-info mode switch3]} {
   set commandWords [split [exec /bin/ps -p [pid] -o args=] " "]
   set switchFrom [lindex [split [module-info name] "/"] 0]
@@ -20,14 +22,35 @@ if { $loadApps  }  {
      } elseif { [ string match "*gnu*" $app ] == 1 && [ string match *gnubase* $app ] == 0 } {
           set compiler "gnu"
      }
+     if { [ string match "*mvapich2*" $app ] == 1 } {
+          set mpi "mvapich2"
+     } elseif { [ string match "*openmpi*" $app ] == 1 } {
+          set mpi "openmpi"
+     } elseif { [ string match "*mpich2*" $app ] == 1 } {
+          set mpi "mpich2"
+     }
+     if { [ string match "*_ib*" $app ] == 1 } {
+          set network "ib"
+     } elseif { [ string match "*_mx*" $app ] == 1 } {
+          set network "mx"
+     } elseif { [ string match "*_eth*" $app ] == 1 } {
+          set network "eth"
+     }
   }
  }
 
- if { [ string equal "nocompiler" $compiler ] ==  1 } {
+  if { [ string equal "nocompiler" $compiler ] ==  1 }  {
       module load intel
-  } else {
+      puts stderr "loading intel module"
+  } elseif { [ string equal "intel" $compiler ] == 0 } {
       module unload $compiler
       module load intel
+      puts stderr "loading intel module"
+  }
+
+  if { [ string equal "nompi" $mpi ] ==  0  && [ string equal "nonetwork" $network ] == 0} {
+     module load ${mpi}_${network}
+     puts stderr "loading ${mpi}_${network} module"
   }
 }
 
