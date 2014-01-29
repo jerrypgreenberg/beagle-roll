@@ -48,11 +48,10 @@ if { $loadApps  }  {
       module unload $compiler
       module load ROLLCOMPILER
       puts stderr "loading ROLLCOMPILER module"
-  }
-
-  if { [ string equal "nompi" $mpi ] ==  0  && [ string equal "nonetwork" $network ] == 0} {
-     module load ${mpi}_${network}
-     puts stderr "loading ${mpi}_${network} module"
+      if { [ string equal "nompi" $mpi ] ==  0  && [ string equal "nonetwork" $network ] == 0} {
+       module load ${mpi}_${network}
+       puts stderr "loading ${mpi}_${network} module"
+     }
   }
 }
 
