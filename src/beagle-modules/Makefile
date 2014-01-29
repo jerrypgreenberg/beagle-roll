@@ -69,7 +69,6 @@ install::
 	  perl -pi -e 's/VERSION/$(VERSION)/g' $(ROOT)/$(PKGROOT)/$(VERSION)
 	  perl -pi -e 's/VERSION/$(VERSION)/g' $(ROOT)/$(PKGROOT)/.version.$(VERSION)
 	  perl -pi -e 's/ROLLCOMPILER/$(ROLLCOMPILER)/g' $(ROOT)/$(PKGROOT)/$(VERSION)
-	  perl -pi -e 's/ROLLCOMPILER/$(ROLLCOMPILER)/g' $(ROOT)/$(PKGROOT)/.version.$(VERSION)
 	  ln -s $(PKGROOT)/.version.$(VERSION) $(ROOT)/$(PKGROOT)/.version
 
 	  cp beagle.module $(ROOT)/$(PKGROOT)/2.1
@@ -77,6 +76,5 @@ install::
 	  perl -pi -e 's/VERSION/2.1/g' $(ROOT)/$(PKGROOT)/2.1
 	  perl -pi -e 's/VERSION/2.1/g' $(ROOT)/$(PKGROOT)/.version.2.1
 	  perl -pi -e 's/ROLLCOMPILER/$(ROLLCOMPILER)/g' $(ROOT)/$(PKGROOT)/2.1
-	  perl -pi -e 's/ROLLCOMPILER/$(ROLLCOMPILER)/g' $(ROOT)/$(PKGROOT)/.version.2.1
 
 clean::

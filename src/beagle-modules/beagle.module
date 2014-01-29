@@ -9,6 +9,8 @@ if {[module-info mode switch1] || [module-info mode switch3]} {
   set loadApps [expr  [string equal $switchTo $switchFrom]]
 } elseif {[module-info mode remove]} {
   set loadApps 0
+} elseif {[module-info mode display]} {
+  set loadApps 0
 } else {
    set loadApps 1
 }
@@ -40,12 +42,12 @@ if { $loadApps  }  {
  }
 
   if { [ string equal "nocompiler" $compiler ] ==  1 }  {
-      module load intel
-      puts stderr "loading intel module"
-  } elseif { [ string equal "intel" $compiler ] == 0 } {
+      module load ROLLCOMPILER
+      puts stderr "loading ROLLCOMPILER module"
+  } elseif { [ string equal "ROLLCOMPILER" $compiler ] == 0 } {
       module unload $compiler
-      module load intel
-      puts stderr "loading intel module"
+      module load ROLLCOMPILER
+      puts stderr "loading ROLLCOMPILER module"
   }
 
   if { [ string equal "nompi" $mpi ] ==  0  && [ string equal "nonetwork" $network ] == 0} {
