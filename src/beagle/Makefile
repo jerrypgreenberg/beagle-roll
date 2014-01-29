@@ -70,9 +70,19 @@ COMPILERSETUP = \
   fi
 
 CONFIG_OPTIONS = --enable-sse=yes --enable-openmp=no
-COMPILE_FLAGS = -xhost -lstdc++
-CCOMP = icc
-CXXCOMP = icpc
+CCOMP = gcc
+CXXCOMP = g++
+COMPILE_FLAGS = -O3 -lstdc++
+ifeq ("$(ROLLCOMPILER)", "intel")
+  CCOMP = icc
+  CXXCOMP = icpc
+  COMPILE_FLAGS = -xhost -lstdc++
+endif
+ifeq ("$(ROLLCOMPILER)", "pgi")
+  COMPILE_FLAGS = -fast -lstdc++
+  CCOMP = pgcc
+  CXXCOMP = pgCC
+endif
 
 build: $(SRC_DIRS)
 	( \

@@ -1,6 +1,6 @@
-NAME    = beagle
 VERSION = 2.1
-RELEASE = 0
+NAME    = beagle-$(VERSION)
+RELEASE = 4
 PKGROOT = /opt/beagle/$(VERSION)
 
 SOURCE_NAME        = beagle
