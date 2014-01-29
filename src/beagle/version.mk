@@ -1,5 +1,5 @@
-NAME    = beagle
 VERSION = 1.1
+NAME    = beagle-$(VERSION)_$(ROLLCOMPILER)
 RELEASE = 0
 PKGROOT = /opt/beagle/$(VERSION)
 

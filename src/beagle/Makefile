@@ -54,8 +54,6 @@
 #
 # @Copyright@
 
-ROLLCOMPILER = intel
-
 REDHAT.ROOT = $(PWD)/../../
 RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 
@@ -92,6 +90,7 @@ build: $(SRC_DIRS)
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
 	  export CXX=$(CXXCOMP); \
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
+          patch $(SOURCE_DIR)/libhmsbeagle/CPU/Precision.h patch-files/Precision.h_CPU.patch; \
 	  cd $(SOURCE_DIR); \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib $(CONFIG_OPTIONS);  \
 	  make \
